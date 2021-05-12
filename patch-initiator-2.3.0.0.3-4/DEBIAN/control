@@ -1,0 +1,11 @@
+Package: patch-initiator
+Version: 2.3.0.0.3-4
+Section: unknown
+Priority: optional
+Depends:
+Suggests:
+Architecture: amd64
+Installed-Size: 4096
+Maintainer: Rice
+Provides: unknown
+Description: patch initiator 2.3.0.0.3-4

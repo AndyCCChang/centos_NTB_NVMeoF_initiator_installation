@@ -1,0 +1,35 @@
+#!/bin/bash -e
+#################################################################################
+#
+#  postint of RSD NVMeoF initiator 2.3.0.0.3-4
+#
+#################################################################################
+#todo check if run-nvme-wheel existed
+RUN_NVME_WHEEL_FILE=/usr/local/bin/run-nvme-wheel
+NVME_WHEEL_FILE=/usr/local/bin/nvme-wheel
+#Not showing logs on console
+#echo "Setting kernel log level = 0"
+UPDATE_VERSION=1.3.24
+#Not showing logs on console
+no_log_console(){
+	echo 0 > /proc/sys/kernel/printk
+#permanant
+	sed -i s/"#kernel.printk.*"/"kernel.printk = 0 4 1 7"/g  /etc/sysctl.conf
+	sed -i s/"kernel.printk.*"/"kernel.printk = 0 4 1 7"/g  /etc/sysctl.conf
+}
+install_nvme_wheel_pacakage(){
+    tar zxvf NVME_WHEEL_PACKAGE_$UPDATE_VERSION.tar.gz
+    cd NVME_WHEEL_PACKAGE_$UPDATE_VERSION
+    sh INSTALL.sh
+}
+
+no_log_console
+install_nvme_wheel_pacakage
+
+if [ -f $RUN_NVME_WHEEL_FILE ]; then
+    sed -i s/" --cron "/" "/g $RUN_NVME_WHEEL_FILE
+    echo "Replace --cron if existed"
+else
+    install run-nvme-wheel /usr/local/bin/
+    echo "Copy run-nvme-wheel to bin"
+fi
