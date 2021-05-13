@@ -1,10 +1,11 @@
 #!/bin/bash
-VER="1.0"
+VER="1.1"
 ILOG="install.log"
 ISUMMARY="install-nvme-wheel-summary.log"
 
 echo "Get get-pip.py."
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py | tee $ILOG $ISUMMARY
+#curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py | tee $ILOG $ISUMMARY
+curl -O https://bootstrap.pypa.io/pip/2.7/get-pip.py | tee $ILOG $ISUMMARY
 echo "Install get-pip.py"
 python2.7 get-pip.py --force-reinstall | tee $ILOG $ISUMMARY
 echo "Install pip wheel"
@@ -16,10 +17,11 @@ cd "$parent_path"
 cd $parent_path/patch-initiator-2.3.0.0.3-4/ | tee $ILOG $ISUMMARY
 cd $parent_path/patch-initiator-2.3.0.0.3-4/NVME_WHEEL_PACKAGE_1.3.24 | tee $ILOG $ISUMMARY
 echo "Install nvme wheel"
-chmod +x $parent_path/patch-initiator-2.3.0.0.3-4/NVME_WHEEL_PACKAGE_1.3.24/INSTALL.sh | tee $ILOG $ISUMMARY
-source $parent_path/patch-initiator-2.3.0.0.3-4/NVME_WHEEL_PACKAGE_1.3.24/INSTALL.sh | tee $ILOG $ISUMMARY
+#chmod +x $parent_path/patch-initiator-2.3.0.0.3-4/NVME_WHEEL_PACKAGE_1.3.24/INSTALL.sh | tee $ILOG $ISUMMARY
+#source $parent_path/patch-initiator-2.3.0.0.3-4/NVME_WHEEL_PACKAGE_1.3.24/INSTALL.sh | tee $ILOG $ISUMMARY
+pip install $parent_path/patch-initiator-2.3.0.0.3-4/NVME_WHEEL_PACKAGE_1.3.24/NVME_Wheel-1.3.24-py2-none-any.whl
 
-done
+#done
 echo "=================================" | tee -a $ILOG $ISUMMARY
 echo "      Host Install Complete" | tee -a $ILOG $ISUMMARY
 echo "=================================" | tee -a $ILOG $ISUMMARY
